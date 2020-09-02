@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "MDukc/rgyUfibOWYy5p9GxUJpM4NqVMvYcCs2PXY2E8QvE0ie65PHkVe+i1Cob7aNwgA2Xta7QCIyOMzyNI3ug==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Petteri\\Desktop\\aaa\\PelisovellustenTaustaj-rjestelm-t-master\\PelisovellustenTaustaj-rjestelm-t\\assignment1\\assignment1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Petteri\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
