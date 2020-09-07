@@ -1,0 +1,13 @@
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\bin\Debug\netcoreapp3.1\assignment2.exe
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\bin\Debug\netcoreapp3.1\assignment2.deps.json
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\bin\Debug\netcoreapp3.1\assignment2.runtimeconfig.json
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\bin\Debug\netcoreapp3.1\assignment2.runtimeconfig.dev.json
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\bin\Debug\netcoreapp3.1\assignment2.dll
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\bin\Debug\netcoreapp3.1\assignment2.pdb
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.csprojAssemblyReference.cache
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.AssemblyInfoInputs.cache
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.AssemblyInfo.cs
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.csproj.CoreCompileInputs.cache
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.dll
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.pdb
+C:\Users\Petteri\Desktop\aaa\PelisovellustenTaustaj-rjestelm-t-master\PelisovellustenTaustaj-rjestelm-t\assignment2\obj\Debug\netcoreapp3.1\assignment2.genruntimeconfig.cache
