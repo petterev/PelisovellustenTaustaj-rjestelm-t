@@ -32,7 +32,7 @@ namespace assignment2
             Action<Item> process = PrintItem;
             ProcessEachItem(player, process);
 
-
+            //Tehtävä 6
             Action<Item> delegateInstance = (Item i) =>
             {
                 Console.WriteLine("ID: " + i.Id);
@@ -40,6 +40,7 @@ namespace assignment2
             };
             ProcessEachItem(player, delegateInstance);
 
+            //Tehtävä 7
             List<Player> p = new List<Player>();
 
             Random rnd = new Random();
@@ -120,38 +121,7 @@ namespace assignment2
         }
 
 
-        public static void GenerateNumbers()
-        {
-            List<int> players = new List<int>();
-            Random rnd = new Random();
-            bool same;
-            for (int i = 0; i < 20; i++)
-            {
 
-                while (true)
-                {
-                    same = false;
-                    int g = rnd.Next(0, 20);
-                    foreach (int p in players)
-                    {
-                        if (g == p)
-                        {
-                            same = true;
-                            break;
-                        }
-                    }
-                    if (!same)
-                    {
-                        players.Add(g);
-                        break;
-                    }
-
-                }
-
-            }
-            foreach (int p in players)
-                Console.WriteLine(p);
-        }
 
         //Tehtävä 1
         public static List<Player> GeneratePlayers()
