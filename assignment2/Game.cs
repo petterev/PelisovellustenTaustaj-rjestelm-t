@@ -16,25 +16,20 @@ public class Game<T> where T : IPlayer
         T[] p = new T[10];
 
 
-        List<T> SortedList = _players.OrderBy(o => o.Score).ToList();
+        List<T> sortedPlayers = _players.OrderBy(o => o.Score).ToList();
+        sortedPlayers.Reverse();
 
 
         for (int i = 0; i < 10; i++)
         {
-            p[i] = _players[i];
+            p[i] = sortedPlayers[i];
         }
 
+        foreach (T t in p)
+        {
+            Console.WriteLine(t.Score);
+
+        }
         return p;
     }
-}/*
-Implement the GetTop10Players method.
-
-Write an another class that implements the IPlayer interface called PlayerForAnotherGame.
-
-Write code that demonstrates that you can instantiate the generic Game class and call 
-GetTop10Players with both Player and PlayerForAnotherGame.
-
-
-
-
-*/
+}

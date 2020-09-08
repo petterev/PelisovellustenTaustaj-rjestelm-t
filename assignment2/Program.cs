@@ -154,7 +154,7 @@ namespace assignment2
         }
 
         //Tehtävä 1
-        public void GeneratePlayers()
+        public static List<Player> GeneratePlayers()
         {
             List<Player> players = new List<Player>();
             bool same;
@@ -182,7 +182,7 @@ namespace assignment2
                 }
 
             }
-
+            return players;
         }
 
 

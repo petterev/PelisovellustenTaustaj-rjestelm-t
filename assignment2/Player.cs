@@ -12,14 +12,7 @@ public class PlayerForAnotherGame : IPlayer
     public int Score { get; set; }
     public List<Item> Items { get; set; }
 
-    public static bool operator >(PlayerForAnotherGame a, PlayerForAnotherGame b)
-    {
-        return a.Score > b.Score;
-    }
-    public static bool operator <(PlayerForAnotherGame a, PlayerForAnotherGame b)
-    {
-        return a.Score < b.Score;
-    }
+
 
 
 }
@@ -42,22 +35,7 @@ public class Player : IPlayer
     public int Score { get; set; }
     public List<Item> Items { get; set; }
 
-    /*  public static bool operator >(Player a, Player b)
-      {
-          return a.Score > b.Score;
-      }
-      public static bool operator <(Player a, Player b)
-      {
-          return a.Score < b.Score;
-      }
-      public static bool operator ==(Player a, Player b)
-      {
-          return a.Score == b.Score;
-      }
-      public static bool operator !=(Player a, Player b)
-      {
-          return a.Score != b.Score;
-      }*/
+
 
 }
 public static class PlayerHelper
