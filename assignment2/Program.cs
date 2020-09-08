@@ -42,9 +42,10 @@ namespace assignment2
 
             List<Player> p = new List<Player>();
 
+            Random rnd = new Random();
             for (int i = 0; i < 10; i++)
             {
-                p.Add(new Player(2000 + i));
+                p.Add(new Player(rnd.Next(0, 100)));
 
             }
 
@@ -52,7 +53,7 @@ namespace assignment2
 
             for (int i = 0; i < 10; i++)
             {
-                p2.Add(new PlayerForAnotherGame(2000 + i));
+                p2.Add(new PlayerForAnotherGame(rnd.Next(0, 100)));
 
             }
 
