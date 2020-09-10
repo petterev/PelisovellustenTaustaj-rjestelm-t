@@ -139,34 +139,7 @@ namespace assignment2
             {
                 Console.WriteLine("no duplicates");
             }
-            /*
-            // bool same;
-             for (int i = 0; i < 100; i++)
-             {
 
-                /* while (true)
-                 {
-                     same = false;
-                     Guid g = Guid.NewGuid();
-                     foreach (Player p in players)
-                     {
-                         if (g == p.Id)
-                         {
-                             same = true;
-                             break;
-                         }
-
-
-                     }
-                     if (!same)
-                     {
-                         players.Add(new Player(g));
-                         break;
-                     }
-
-                 }
-
-             }*/
             return players;
         }
 
