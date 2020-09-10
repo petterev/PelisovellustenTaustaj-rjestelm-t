@@ -11,6 +11,11 @@ namespace assignment2
 
         static void Main(string[] args)
         {
+            //Tehtävä 1 tulostus
+            List<Player> players = new List<Player>();
+            GeneratePlayers(players);
+            Console.WriteLine(players.Count);
+
             List<Item> l = new List<Item>();
             l.Add(new Item(100));
             l.Add(new Item(10));
@@ -124,34 +129,44 @@ namespace assignment2
 
 
         //Tehtävä 1
-        public static List<Player> GeneratePlayers()
+        public static List<Player> GeneratePlayers(List<Player> players)
         {
-            List<Player> players = new List<Player>();
-            bool same;
             for (int i = 0; i < 1000000; i++)
             {
-
-                while (true)
-                {
-                    same = false;
-                    Guid g = Guid.NewGuid();
-                    foreach (Player p in players)
-                    {
-                        if (g == p.Id)
-                        {
-                            same = true;
-                            break;
-                        }
-                    }
-                    if (!same)
-                    {
-                        players[i] = new Player(g);
-                        break;
-                    }
-
-                }
-
+                players.Add(new Player(Guid.NewGuid()));
             }
+            if (players.Distinct().Count() == 1000000)
+            {
+                Console.WriteLine("no duplicates");
+            }
+            /*
+            // bool same;
+             for (int i = 0; i < 100; i++)
+             {
+
+                /* while (true)
+                 {
+                     same = false;
+                     Guid g = Guid.NewGuid();
+                     foreach (Player p in players)
+                     {
+                         if (g == p.Id)
+                         {
+                             same = true;
+                             break;
+                         }
+
+
+                     }
+                     if (!same)
+                     {
+                         players.Add(new Player(g));
+                         break;
+                     }
+
+                 }
+
+             }*/
             return players;
         }
 
