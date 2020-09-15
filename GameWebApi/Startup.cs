@@ -15,6 +15,10 @@ namespace GameWebApi
 {
     public class Startup
     {
+
+
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +30,7 @@ namespace GameWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IRepository, FileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,3 +54,10 @@ namespace GameWebApi
         }
     }
 }
+/*Joo eli FileRepository käsittelee ja lukee tiedostoa. 
+PlayerController ottaa vastaan HTTP-pyyntöjä ja palauttaa sopivan vastauksen clientille. PlayerController käyttää FileRepositoryä.
+Tai tarkemmin ottaen PlayerController käyttää IRepository-rajapinnan toteuttaman luokan oliota, 
+joka on tässä tapauksessa FileRepository-tyyppinen
+
+using (StreamWriter w = File.AppendText("log.txt"))
+*/

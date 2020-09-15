@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,23 @@ namespace GameWebApi
     {
         public static void Main(string[] args)
         {
+            string path = "game-dev.txt";
+            if (!File.Exists(path))
+            {
+                File.Create(path);
+                //TextWriter tw = new StreamWriter(path);
+                //tw.WriteLine("The very first line!");
+                // tw.Close();
+            }
+            /* else if (File.Exists(path))
+             {
+                 TextWriter tw = new StreamWriter(path);
+                 tw.WriteLine("The next line!");
+                 tw.Close();
+             }*/
+
+
+
             CreateHostBuilder(args).Build().Run();
         }
 
