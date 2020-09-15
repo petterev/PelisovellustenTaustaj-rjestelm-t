@@ -74,7 +74,7 @@ public class FileRepository : IRepository
 
         return null;
     }
-    [HttpDelete]
+
     public async Task<Player> Delete(Guid id)
     {
         string plrs = await File.ReadAllTextAsync("game-dev.txt");

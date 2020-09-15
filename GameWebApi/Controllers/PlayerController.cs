@@ -19,12 +19,12 @@ namespace GameWebApi.Controllers
         {
             _repository = repository;
         }
-        [HttpGet]
+        [HttpGet("Get{id:Guid}")]
         public Task<Player> Get(Guid id)
         {
-            return _repository.Get();
+            return _repository.Get(id);
         }
-        [HttpGet]
+        [HttpGet("GetAll")]
         public Task<Player[]> GetAll()
         {
             return _repository.GetAll();
@@ -32,15 +32,22 @@ namespace GameWebApi.Controllers
 
         public Task<Player> Create(NewPlayer player)
         {
-            return _repository.Create();
+            Player p = new Player();
+            p.Name = player.Name;
+            p.Id = player.Id;
+            p.CreationTime = player.CreationTime;
+
+            return _repository.Create(p);
+
         }
         public Task<Player> Modify(Guid id, ModifiedPlayer player)
         {
-            return _repository.Modify();
+            return _repository.Modify(id, player);
         }
+        [HttpDelete("Del{id:Guid}")]
         public Task<Player> Delete(Guid id)
         {
-            return _repository.Delete();
+            return _repository.Delete(id);
         }
 
 
