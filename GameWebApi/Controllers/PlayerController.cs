@@ -25,15 +25,16 @@ namespace GameWebApi.Controllers
         [Route("Get/{id:Guid}")]
         public async Task<Player> Get(Guid id)
         {
-            await _repository.Get(id);
-            return null;
+            Player p = await _repository.Get(id);
+            return p;
         }
+
         [HttpGet]
         [Route("GetAll")]
         public async Task<Player[]> GetAll()
         {
-            await _repository.GetAll();
-            return null;
+            Player[] p = await _repository.GetAll();
+            return p;
         }
 
         [HttpPost]
@@ -57,16 +58,16 @@ namespace GameWebApi.Controllers
         [Route("Mod/{id:Guid}")]
         public async Task<Player> Modify(Guid id, [FromBody] ModifiedPlayer player)
         {
-            await _repository.Modify(id, player);
-            return null;
+            Player p = await _repository.Modify(id, player);
+            return p;
         }
 
         [HttpDelete]
         [Route("Del/{id:Guid}")]
         public async Task<Player> Delete(Guid id)
         {
-            await _repository.Delete(id);
-            return null;
+            Player p = await _repository.Delete(id);
+            return p;
         }
 
 

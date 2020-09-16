@@ -16,11 +16,12 @@ public class FileRepository : IRepository
 
     public async Task<Player> Get(Guid id)
     {
+        PlayerList List = new PlayerList();
         string plrs = await File.ReadAllTextAsync("game-dev.txt");
 
-        List<Player> list = JsonConvert.DeserializeObject<List<Player>>(plrs);
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
 
-        foreach (Player p in list)
+        foreach (Player p in List.list)
         {
             if (p.Id == id)
             {
@@ -32,11 +33,12 @@ public class FileRepository : IRepository
     }
     public async Task<Player[]> GetAll()
     {
+        PlayerList List = new PlayerList();
         string plrs = await File.ReadAllTextAsync("game-dev.txt");
 
-        List<Player> list = JsonConvert.DeserializeObject<List<Player>>(plrs);
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
 
-        return list.ToArray();
+        return List.list.ToArray();
 
 
 
@@ -57,18 +59,18 @@ public class FileRepository : IRepository
     }
     public async Task<Player> Modify(Guid id, ModifiedPlayer player)
     {
+        PlayerList List = new PlayerList();
         string plrs = await File.ReadAllTextAsync("game-dev.txt");
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
 
-        List<Player> list = JsonConvert.DeserializeObject<List<Player>>(plrs);
-
-        foreach (Player p in list)
+        foreach (Player p in List.list)
         {
 
             if (p.Id == id)
             {
                 p.Score = player.Score;
 
-                await File.WriteAllTextAsync("game-dev.txt", JsonConvert.SerializeObject(list.ToArray()));
+                await File.WriteAllTextAsync("game-dev.txt", JsonConvert.SerializeObject(List));
 
                 return p;
             }
@@ -79,22 +81,21 @@ public class FileRepository : IRepository
 
     public async Task<Player> Delete(Guid id)
     {
+        PlayerList List = new PlayerList();
         string plrs = await File.ReadAllTextAsync("game-dev.txt");
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
 
-        List<Player> list = JsonConvert.DeserializeObject<List<Player>>(plrs);
-
-        foreach (Player p in list)
+        for (int i = 0; i < List.list.Count; i++)
         {
-            if (id == p.Id)
+            if (id == List.list[i].Id)
             {
-                //Player d;
-                list.Remove(p);
+                Player d = List.list[i];
+                List.list.RemoveAt(i);
+                return d;
             }
         }
-        string json = JsonConvert.SerializeObject(list.ToArray());
 
-        //write string to file
-        File.WriteAllText("game-dev.txt", json);
+        File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(List));
 
         return null;
     }
