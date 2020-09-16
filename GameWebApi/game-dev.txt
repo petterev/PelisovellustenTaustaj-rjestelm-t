@@ -1,0 +1,1 @@
+{"list":[{"Id":"5a2a9b8a-771d-4c4a-8c2b-eb3b5bb1fcaa","Name":"Matti","Score":0,"Level":0,"IsBanned":false,"CreationTime":"2020-09-16T09:47:42.4972086Z"},{"Id":"20fa05e1-e37b-4fc9-9bd6-336083bb1328","Name":"Mervi","Score":0,"Level":0,"IsBanned":false,"CreationTime":"2020-09-16T09:47:56.3455158Z"}]}

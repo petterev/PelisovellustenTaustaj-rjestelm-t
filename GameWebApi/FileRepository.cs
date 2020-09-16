@@ -9,7 +9,10 @@ using System.IO;
 public class FileRepository : IRepository
 {
 
-
+    public class PlayerList
+    {
+        public List<Player> list = new List<Player>();
+    }
 
     public async Task<Player> Get(Guid id)
     {
@@ -19,10 +22,8 @@ public class FileRepository : IRepository
 
         foreach (Player p in list)
         {
-
             if (p.Id == id)
             {
-
                 return p;
             }
         }
@@ -43,13 +44,16 @@ public class FileRepository : IRepository
     }
     public async Task<Player> Create(Player player)
     {
-        List<Player> pl = new List<Player>();
-        pl.Add(player);
+        PlayerList List = new PlayerList();
+        string plrs = await File.ReadAllTextAsync("game-dev.txt");
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        List.list.Add(player);
 
-        string json = JsonConvert.SerializeObject(pl.ToArray());
-        await File.WriteAllTextAsync("game-dev.txt", json);
 
-        return null;
+        await File.WriteAllTextAsync("game-dev.txt", JsonConvert.SerializeObject(List));
+
+
+        return player;
     }
     public async Task<Player> Modify(Guid id, ModifiedPlayer player)
     {

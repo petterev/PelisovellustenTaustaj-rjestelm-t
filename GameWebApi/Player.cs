@@ -8,14 +8,5 @@ public class Player
     public bool IsBanned { get; set; }
     public DateTime CreationTime { get; set; }
 
-    public Player()
-    {
 
-        Name = null;
-        Score = 0;
-        Level = 0;
-        IsBanned = false;
-
-
-    }
 }

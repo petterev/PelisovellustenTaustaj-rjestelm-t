@@ -13,9 +13,9 @@ namespace GameWebApi.Controllers
     {
 
         private readonly ILogger<PlayerController> _logger;
-        private readonly FileRepository _repository;
+        private readonly IRepository _repository;
 
-        public PlayerController(ILogger<PlayerController> logger, FileRepository repository)
+        public PlayerController(ILogger<PlayerController> logger, IRepository repository)
         {
             _logger = logger;
             _repository = repository;
@@ -23,39 +23,50 @@ namespace GameWebApi.Controllers
 
         [HttpGet]
         [Route("Get/{id:Guid}")]
-        public Task<Player> Get(Guid id)
+        public async Task<Player> Get(Guid id)
         {
-            return _repository.Get(id);
+            await _repository.Get(id);
+            return null;
         }
-        [HttpGet("GetAll")]
-        public Task<Player[]> GetAll()
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<Player[]> GetAll()
         {
-            return _repository.GetAll();
+            await _repository.GetAll();
+            return null;
         }
 
         [HttpPost]
         [Route("Create")]
-        public Task<Player> Create([FromBody] NewPlayer player)
+        public async Task<Player> Create([FromBody] NewPlayer player)
         {
             Player p = new Player();
             p.Name = player.Name;
             p.Id = Guid.NewGuid();
             p.CreationTime = DateTime.UtcNow;
+            p.Level = 0;
+            p.Score = 0;
+            p.IsBanned = false;
 
-            return _repository.Create(p);
+            await _repository.Create(p);
+            return p;
 
         }
+
         [HttpPost]
-        [Route("Mod/{id:GUid")]
-        public Task<Player> Modify(Guid id, [FromBody] ModifiedPlayer player)
+        [Route("Mod/{id:Guid}")]
+        public async Task<Player> Modify(Guid id, [FromBody] ModifiedPlayer player)
         {
-            return _repository.Modify(id, player);
+            await _repository.Modify(id, player);
+            return null;
         }
+
         [HttpDelete]
         [Route("Del/{id:Guid}")]
-        public Task<Player> Delete(Guid id)
+        public async Task<Player> Delete(Guid id)
         {
-            return _repository.Delete(id);
+            await _repository.Delete(id);
+            return null;
         }
 
 

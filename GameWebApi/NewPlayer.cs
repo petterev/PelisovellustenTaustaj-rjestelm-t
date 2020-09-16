@@ -6,11 +6,6 @@ public class NewPlayer
     public string Name { get; set; }
 
 
+    public NewPlayer() { }
 
-    public NewPlayer(string name)
-    {
-
-        Name = name;
-
-    }
 }
