@@ -8,18 +8,21 @@ using Microsoft.Extensions.Logging;
 namespace GameWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("players")]
     public class PlayerController : ControllerBase
     {
 
+        private readonly ILogger<PlayerController> _logger;
         private readonly FileRepository _repository;
 
-
-        public PlayerController(FileRepository repository)
+        public PlayerController(ILogger<PlayerController> logger, FileRepository repository)
         {
+            _logger = logger;
             _repository = repository;
         }
-        [HttpGet("Get{id:Guid}")]
+
+        [HttpGet]
+        [Route("Get/{id:Guid}")]
         public Task<Player> Get(Guid id)
         {
             return _repository.Get(id);
@@ -30,21 +33,26 @@ namespace GameWebApi.Controllers
             return _repository.GetAll();
         }
 
-        public Task<Player> Create(NewPlayer player)
+        [HttpPost]
+        [Route("Create")]
+        public Task<Player> Create([FromBody] NewPlayer player)
         {
             Player p = new Player();
             p.Name = player.Name;
-            p.Id = player.Id;
-            p.CreationTime = player.CreationTime;
+            p.Id = Guid.NewGuid();
+            p.CreationTime = DateTime.UtcNow;
 
             return _repository.Create(p);
 
         }
-        public Task<Player> Modify(Guid id, ModifiedPlayer player)
+        [HttpPost]
+        [Route("Mod/{id:GUid")]
+        public Task<Player> Modify(Guid id, [FromBody] ModifiedPlayer player)
         {
             return _repository.Modify(id, player);
         }
-        [HttpDelete("Del{id:Guid}")]
+        [HttpDelete]
+        [Route("Del/{id:Guid}")]
         public Task<Player> Delete(Guid id)
         {
             return _repository.Delete(id);

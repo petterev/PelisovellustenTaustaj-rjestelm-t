@@ -47,8 +47,6 @@ public class FileRepository : IRepository
         pl.Add(player);
 
         string json = JsonConvert.SerializeObject(pl.ToArray());
-
-        //write string to file
         await File.WriteAllTextAsync("game-dev.txt", json);
 
         return null;
@@ -64,10 +62,10 @@ public class FileRepository : IRepository
 
             if (p.Id == id)
             {
-
-                p.Level = player.Level;
                 p.Score = player.Score;
-                p.IsBanned = player.IsBanned;
+
+                await File.WriteAllTextAsync("game-dev.txt", JsonConvert.SerializeObject(list.ToArray()));
+
                 return p;
             }
         }
@@ -85,6 +83,7 @@ public class FileRepository : IRepository
         {
             if (id == p.Id)
             {
+                //Player d;
                 list.Remove(p);
             }
         }
