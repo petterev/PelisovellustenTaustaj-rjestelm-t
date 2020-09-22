@@ -99,4 +99,64 @@ public class FileRepository : IRepository
 
         return null;
     }
+
+    public async Task<Item> CreateItem(Guid playerId, Item item)
+    {
+        Player player = await Get(playerId);
+        player.Items.Add(item);
+
+        return item;
+    }
+    public async Task<Item> GetItem(Guid playerId, Guid itemId)
+    {
+        Player player = await Get(playerId);
+        foreach (Item item in player.Items)
+        {
+            if (item.Id == itemId)
+                return item;
+        }
+        return null;
+    }
+    public async Task<Item[]> GetAllItems(Guid playerId)
+    {
+        Player player = await Get(playerId);
+
+        return player.Items.ToArray();
+
+
+    }
+    public async Task<Item> UpdateItem(Guid playerId, Item item)
+    {
+        Player player = await Get(playerId);
+        for (int i = 0; i < player.Items.Count; i++)
+        {
+            if (player.Items[i].Id == item.Id)
+            {
+                player.Items[i] = item;
+                return item;
+
+            }
+
+        }
+        return null;
+
+
+
+    }
+    public async Task<Item> DeleteItem(Guid playerId, Item item)
+    {
+
+        Player player = await Get(playerId);
+        for (int i = 0; i < player.Items.Count; i++)
+        {
+            if (player.Items[i].Id == item.Id)
+            {
+                player.Items[i] = null;
+                return item;
+
+            }
+
+        }
+        return null;
+    }
 }

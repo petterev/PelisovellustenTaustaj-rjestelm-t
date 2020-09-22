@@ -30,7 +30,7 @@ namespace GameWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IRepository, FileRepository>();
+            services.AddSingleton<IRepository, MongoDBRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
