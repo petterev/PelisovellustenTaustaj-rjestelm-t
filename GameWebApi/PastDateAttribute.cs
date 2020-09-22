@@ -12,17 +12,17 @@ public class PastDateAttribute : ValidationAttribute
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         Item item = (Item)validationContext.ObjectInstance;
-        if (item.CreationDate >= DateTime.Now)
+        if (item.CreationDate < DateTime.Now)
         {
-            //  return new ValidationResult(GetErrorMessage());
+            return ValidationResult.Success;
         }
-        return ValidationResult.Success;
+        return new ValidationResult("error");
     }
 
-    private ValidationResult GetErrorMessage()
-    {
-        throw new NotImplementedException();
-    }
+    /* private ValidationResult GetErrorMessage()
+     {
+         throw new NotImplementedException();
+     }*/
 }
 /*using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

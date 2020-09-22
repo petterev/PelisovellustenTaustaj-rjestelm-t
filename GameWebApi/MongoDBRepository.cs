@@ -33,12 +33,20 @@ public class MongoDBRepository : IRepository
     public async Task<Player> Get(Guid id)
     {
         //var filter = Builders<Player>.Filter.Eq(p => p.Id, id);
-        var players = await _playerCollection.Find(null).ToListAsync();
-        foreach (Player p in players)
+        try
         {
-            if (p.Id == id)
-                return p;
+            var players = await _playerCollection.Find(null).ToListAsync();
+            foreach (Player p in players)
+            {
+                if (p.Id == id)
+                    return p;
+            }
         }
+        catch (NotFoundException e)
+        {
+
+        }
+
         return null;
     }
     public async Task<Player[]> GetAll()
