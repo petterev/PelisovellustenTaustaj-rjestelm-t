@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 public class ErrorHandlerMiddleware
@@ -18,10 +19,21 @@ public class ErrorHandlerMiddleware
 
         }
 
-        catch (Exception e)
+        catch (NotFoundException e)
         {
 
             Console.WriteLine(e.Message);
+            context.Response.StatusCode = 404;
         }
+    }
+}
+public static class MyMiddlewareExtensions
+{
+
+    public static IApplicationBuilder UseMyMiddleware(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<ErrorHandlerMiddleware>();
+
+
     }
 }

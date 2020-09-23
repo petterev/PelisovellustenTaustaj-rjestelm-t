@@ -34,27 +34,14 @@ public class MongoDBRepository : IRepository
 
     public async Task<Player> Get(Guid id)
     {
-        try
-        {
-            FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Score, 5);
-            Player player = await _playerCollection.Find(filter).FirstAsync();
 
-            return player;
-
-            throw new NotFoundException();
-
-        }
-        catch (NotFoundException e)
-        {
-            //  HttpContext context;
-            // context.Response.StatusCode = 404;
-            //  await _middleware.Invoke(context);
-        }
-        return null;
+        FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Id, id);
+        Player player = await _playerCollection.Find(filter).FirstAsync();
 
 
 
 
+        return player;
     }
     public async Task<Player[]> GetAll()
     {
@@ -91,9 +78,17 @@ public class MongoDBRepository : IRepository
 
     public async Task<Item> CreateItem(Guid playerId, Item item)
     {
-        //FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Id, playerId);
-        Player player = await Get(playerId);
+
+        FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Id, playerId);
+        Player player = await _playerCollection.Find(filter).FirstAsync();
+
+        if (player == null)
+            throw new NotFoundException();
+        if (player.Items == null)
+            player.Items = new List<Item>();
+
         player.Items.Add(item);
+        await _playerCollection.ReplaceOneAsync(filter, player);
         return item;
     }
     public async Task<Item> GetItem(Guid playerId, Guid itemId)
@@ -117,19 +112,36 @@ public class MongoDBRepository : IRepository
         return player.Items.ToArray();
 
     }
-    public async Task<Item> UpdateItem(Guid playerId, Item item)
-    {
-        Player player = await Get(playerId);
-
-        return null;
-    }
-    public async Task<Item> DeleteItem(Guid playerId, Item item)
+    public async Task<Item> UpdateItem(Guid playerId, Guid itemId, Item item)
     {
         Player player = await Get(playerId);
         for (int i = 0; i < player.Items.Count; i++)
         {
-            if (player.Items[i] == item)
+            if (player.Items[i].Id == itemId)
+            {
+                player.Items[i].Level = item.Level;
+                return player.Items[i];
+            }
+        }
+
+        return null;
+    }
+    public async Task<Item> DeleteItem(Guid playerId, Guid itemId)
+    {
+        FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Id, playerId);
+        Player player = await _playerCollection.Find(filter).FirstAsync();
+
+        Item item1 = null;
+        for (int i = 0; i < player.Items.Count; i++)
+        {
+            if (player.Items[i].Id == itemId)
+            {
+                item1 = player.Items[i];
                 player.Items.RemoveAt(i);
+                await _playerCollection.ReplaceOneAsync(filter, player);
+                return item1;
+            }
+
         }
         return null;
     }

@@ -46,11 +46,8 @@ public class FileRepository : IRepository
     }
     public async Task<Player> Create(Player player)
     {
-        PlayerList List = new PlayerList();
-        string plrs = await File.ReadAllTextAsync("game-dev.txt");
-        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        PlayerList List = await GetList();
         List.list.Add(player);
-
 
         await File.WriteAllTextAsync("game-dev.txt", JsonConvert.SerializeObject(List));
 
@@ -81,9 +78,7 @@ public class FileRepository : IRepository
 
     public async Task<Player> Delete(Guid id)
     {
-        PlayerList List = new PlayerList();
-        string plrs = await File.ReadAllTextAsync("game-dev.txt");
-        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        PlayerList List = await GetList();
 
         for (int i = 0; i < List.list.Count; i++)
         {
@@ -91,72 +86,104 @@ public class FileRepository : IRepository
             {
                 Player d = List.list[i];
                 List.list.RemoveAt(i);
+                File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(List));
                 return d;
             }
         }
 
-        File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(List));
+
 
         return null;
     }
 
     public async Task<Item> CreateItem(Guid playerId, Item item)
     {
+        PlayerList List = await GetList();
         Player player = await Get(playerId);
-        player.Items.Add(item);
 
+        player.Items.Add(item);
+        File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(List));
         return item;
     }
     public async Task<Item> GetItem(Guid playerId, Guid itemId)
     {
-        Player player = await Get(playerId);
-        foreach (Item item in player.Items)
+        PlayerList List = new PlayerList();
+        string plrs = await File.ReadAllTextAsync("game-dev.txt");
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        for (int i = 0; i < List.list.Count; i++)
         {
-            if (item.Id == itemId)
-                return item;
+            if (List.list[i].Id == playerId)
+            {
+                foreach (Item item in List.list[i].Items)
+                {
+                    if (item.Id == itemId)
+                    {
+
+                        return item;
+                    }
+
+
+                }
+
+            }
         }
         return null;
     }
     public async Task<Item[]> GetAllItems(Guid playerId)
     {
-        Player player = await Get(playerId);
-
-        return player.Items.ToArray();
-
-
-    }
-    public async Task<Item> UpdateItem(Guid playerId, Item item)
-    {
-        Player player = await Get(playerId);
-        for (int i = 0; i < player.Items.Count; i++)
+        PlayerList List = await GetList();
+        for (int i = 0; i < List.list.Count; i++)
         {
-            if (player.Items[i].Id == item.Id)
+            if (List.list[i].Id == playerId)
             {
-                player.Items[i] = item;
-                return item;
-
+                return List.list[i].Items.ToArray();
             }
-
         }
         return null;
 
-
-
     }
-    public async Task<Item> DeleteItem(Guid playerId, Item item)
+    public async Task<Item> UpdateItem(Guid playerId, Guid itemId, Item item)
     {
-
+        PlayerList List = await GetList();
         Player player = await Get(playerId);
+
+        for (int j = 0; j < player.Items.Count; j++)
+        {
+            if (player.Items[j].Id == itemId)
+            {
+                player.Items[j].Level = item.Level;
+                File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(List));
+                return player.Items[j];
+            }
+        }
+
+        return null;
+    }
+    public async Task<Item> DeleteItem(Guid playerId, Guid itemId)
+    {
+        PlayerList List = await GetList();
+        Player player = await Get(playerId);
+        Item deletedItem;
         for (int i = 0; i < player.Items.Count; i++)
         {
-            if (player.Items[i].Id == item.Id)
+            if (player.Items[i].Id == itemId)
             {
+                deletedItem = player.Items[i];
                 player.Items[i] = null;
-                return item;
+                File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(List));
+                return deletedItem;
 
             }
 
         }
         return null;
+    }
+    public async Task<PlayerList> GetList()
+    {
+        PlayerList List = new PlayerList();
+        string plrs = await File.ReadAllTextAsync("game-dev.txt");
+        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        return List;
+
     }
 }

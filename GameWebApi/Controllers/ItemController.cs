@@ -23,14 +23,18 @@ namespace GameWebApi.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<Item> CreateItem(Guid playerId, [FromBody] Item item)
+        public async Task<Item> CreateItem(Guid playerId, [FromBody] NewItem item)
         {
 
-            Item i = await _repository.CreateItem(playerId, item);
-            return i;
+            Item i = new Item();
+            i.Id = Guid.NewGuid();
+            i.CreationDate = DateTime.UtcNow;
+            i.Level = item.Level;
+            i.Type = item.Type;
+            return await _repository.CreateItem(playerId, i);
         }
         [HttpGet]
-        [Route("Get")]
+        [Route("{itemId:Guid}")]
         public async Task<Item> GetItem(Guid playerId, Guid itemId)
         {
 
@@ -45,23 +49,23 @@ namespace GameWebApi.Controllers
 
             return await _repository.GetAllItems(playerId);
         }
-        [HttpGet]
-        [Route("Update")]
-        public async Task<Item> UpdateItem(Guid playerId, [FromBody] ModifiedItem item)
+        [HttpPost]
+        [Route("Update/{itemId:Guid}")]
+        public async Task<Item> UpdateItem(Guid playerId, Guid itemId, [FromBody] ModifiedItem item)
         {
             Item i = new Item();
             i.Level = item.Level;
 
 
-            return await _repository.UpdateItem(playerId, i);
+            return await _repository.UpdateItem(playerId, itemId, i);
         }
         [HttpDelete]
-        [Route("Del")]
-        public async Task<Item> DeleteItem(Guid playerId, [FromBody] Item item)
+        [Route("Del/{itemId:Guid}")]
+        public async Task<Item> DeleteItem(Guid playerId, Guid itemId)
         {
 
 
-            return await _repository.DeleteItem(playerId, item);
+            return await _repository.DeleteItem(playerId, itemId);
         }
 
 
