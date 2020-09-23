@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 public class MongoDBRepository : IRepository
 {
     private readonly IMongoCollection<Player> _playerCollection;
     private readonly IMongoCollection<BsonDocument> _bsonDocumentCollection;
+    private ErrorHandlerMiddleware _middleware;
 
     public MongoDBRepository()
     {
@@ -32,26 +34,31 @@ public class MongoDBRepository : IRepository
 
     public async Task<Player> Get(Guid id)
     {
-        //var filter = Builders<Player>.Filter.Eq(p => p.Id, id);
         try
         {
-            var players = await _playerCollection.Find(null).ToListAsync();
-            foreach (Player p in players)
-            {
-                if (p.Id == id)
-                    return p;
-            }
+            FilterDefinition<Player> filter = Builders<Player>.Filter.Eq(p => p.Score, 5);
+            Player player = await _playerCollection.Find(filter).FirstAsync();
+
+            return player;
+
+            throw new NotFoundException();
+
         }
         catch (NotFoundException e)
         {
-
+            //  HttpContext context;
+            // context.Response.StatusCode = 404;
+            //  await _middleware.Invoke(context);
         }
-
         return null;
+
+
+
+
     }
     public async Task<Player[]> GetAll()
     {
-        var players = await _playerCollection.Find(null).ToListAsync();
+        var players = await _playerCollection.Find(new BsonDocument()).ToListAsync();
         return players.ToArray();
 
 

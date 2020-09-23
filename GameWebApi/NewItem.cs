@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations;
 public class NewItem
 {
 
-    public enum ItemType { SWORD, POTION, SHIELD }
+    // public enum ItemType { SWORD, POTION, SHIELD }
 
     public Guid Id { get; set; }
+    [Range(0, 2)]
     public ItemType Type { get; set; }
     [Range(0, 99)]
     public int Level { get; set; }

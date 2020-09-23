@@ -20,6 +20,7 @@ public class ErrorHandlerMiddleware
 
         catch (Exception e)
         {
+
             Console.WriteLine(e.Message);
         }
     }
