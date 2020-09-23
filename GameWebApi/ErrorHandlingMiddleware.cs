@@ -22,7 +22,7 @@ public class ErrorHandlerMiddleware
         catch (NotFoundException e)
         {
 
-            Console.WriteLine(e.Message);
+            Console.WriteLine("error: " + e.Message);
             context.Response.StatusCode = 404;
         }
     }
