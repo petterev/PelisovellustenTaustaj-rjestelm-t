@@ -7,12 +7,24 @@ using System.IO;
 
 public interface IRepository
 {
-    public Task<Player> Get(Guid id);
-    public Task<Player[]> GetAll();
-    public Task<Player> Create(Player player);
 
-    public Task<Player> Modify(Guid id, ModifiedPlayer player);
-    public Task<Player> Delete(Guid id);
+    Task<Player[]> GetWithNumOfItems(int i);
+    Task<Player[]> GetWithScoreMin(int m);
+    Task<Player[]> GetTenHighest();
+    Task<Player[]> GetAllWithTag(string tag);
+
+    Task<Item> GiveItem(Guid id, Item item);
+
+    Task<Player> IncrementScore(Guid id, int i);
+    Task<Player> Create(Player player);
+
+
+    Task<Player> Get(Guid id);
+    Task<Player[]> GetAll();
+
+    Task<Player> Modify(Guid id, ModifiedPlayer player);
+    Task<Player> Delete(Guid id);
+
 
     Task<Item> CreateItem(Guid playerId, Item item);
     Task<Item> GetItem(Guid playerId, Guid itemId);
@@ -20,5 +32,5 @@ public interface IRepository
     Task<Item> UpdateItem(Guid playerId, Guid itemId, Item item);
     Task<Item> DeleteItem(Guid playerId, Guid itemId);
 
-
+    Task<Player[]> FindPlayersWithItemOfType(ItemType itemType);
 }

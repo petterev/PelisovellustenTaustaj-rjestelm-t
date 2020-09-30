@@ -21,6 +21,53 @@ namespace GameWebApi.Controllers
             _repository = repository;
         }
 
+
+        [HttpGet]
+        [Route("GetWithNumOfItems/{i:int}")]
+        public async Task<Player[]> GetWithNumOfItems(int i)
+        {
+            Player[] p = await _repository.GetWithNumOfItems(i);
+
+            return p;
+        }
+
+        [HttpGet]
+        //[Route("GetWithMinScore/?minScore=x")]
+        public async Task<Player[]> GetWithScoreMin(int minScore)
+        {
+            Player[] p = await _repository.GetWithScoreMin(minScore);
+
+            return p;
+
+        }
+        [HttpPost]
+        [Route("IncrScore/{id:Guid/i:int}")]
+        public async Task<Player> IncrementScore(Guid id, int i)
+        {
+            Player p = await _repository.IncrementScore(id, i);
+
+            return p;
+        }
+
+        [HttpGet]
+        [Route("GetWithItem")]
+        // [Route("GetWithItem/{itemType:ItemType}")
+        public async Task<Player[]> FindPlayersWithItemOfType([FromBody] ItemType itemType)
+        {
+
+            Player[] p = await _repository.FindPlayersWithItemOfType(itemType);
+            return p;
+        }
+        [HttpGet]
+        [Route("GetWithTag")]
+        //[Route("GetWithTag{tag:String}")]
+        public async Task<Player[]> GetAllWithTag([FromBody] string tag)
+        {
+
+            Player[] players = await _repository.GetAllWithTag(tag);
+            return null;
+        }
+
         [HttpGet]
         [Route("Get/{id:Guid}")]
         public async Task<Player> Get(Guid id)
@@ -48,6 +95,8 @@ namespace GameWebApi.Controllers
             p.Level = 0;
             p.Score = 0;
             p.IsBanned = false;
+            p.tags = player.tags;
+            //  p.tags.Append("noob");
 
             await _repository.Create(p);
             return p;

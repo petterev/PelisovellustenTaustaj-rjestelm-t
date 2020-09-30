@@ -21,6 +21,24 @@ namespace GameWebApi.Controllers
             _repository = repository;
         }
 
+
+
+        [HttpPost]
+        [Route("Give")]
+        public async Task<Item> GiveItem(Guid id, [FromBody] NewItem item)
+        {
+            Item i = new Item();
+            i.Level = item.Level;
+            i.Id = Guid.NewGuid();
+            i.CreationDate = DateTime.UtcNow;
+            i.Type = item.Type;
+
+            return await _repository.GiveItem(id, i);
+        }
+
+
+
+
         [HttpPost]
         [Route("Create")]
         public async Task<Item> CreateItem(Guid playerId, [FromBody] NewItem item)

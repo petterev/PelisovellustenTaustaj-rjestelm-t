@@ -14,12 +14,55 @@ public class FileRepository : IRepository
         public List<Player> list = new List<Player>();
     }
 
+
+    public Task<Item> GiveItem(Guid id, Item item)
+    {
+
+        return null;
+    }
+
+    public Task<Player[]> GetWithNumOfItems(int i)
+    {
+
+
+        return null;
+    }
+    public Task<Player[]> FindPlayersWithItemOfType(ItemType itemType)
+    {
+
+
+        return null;
+    }
+
+    public Task<Player[]> GetWithScoreMin(int m)
+    {
+
+
+        return null;
+    }
+    public Task<Player> IncrementScore(Guid id, int i)
+    {
+
+
+        return null;
+    }
+    public Task<Player[]> GetTenHighest()
+    {
+
+
+
+        return null;
+    }
+    public Task<Player[]> GetAllWithTag(string tag)
+    {
+
+        return null;
+    }
+
+
     public async Task<Player> Get(Guid id)
     {
-        PlayerList List = new PlayerList();
-        string plrs = await File.ReadAllTextAsync("game-dev.txt");
-
-        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        PlayerList List = await GetList();
 
         foreach (Player p in List.list)
         {
@@ -56,9 +99,7 @@ public class FileRepository : IRepository
     }
     public async Task<Player> Modify(Guid id, ModifiedPlayer player)
     {
-        PlayerList List = new PlayerList();
-        string plrs = await File.ReadAllTextAsync("game-dev.txt");
-        List = JsonConvert.DeserializeObject<PlayerList>(plrs);
+        PlayerList List = await GetList();
 
         foreach (Player p in List.list)
         {

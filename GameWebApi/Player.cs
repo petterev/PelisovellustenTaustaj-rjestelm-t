@@ -11,6 +11,8 @@ public class Player
     public bool IsBanned { get; set; }
     public DateTime CreationTime { get; set; }
 
+    public string[] tags { get; set; }
+
     public List<Item> Items { get; set; }
 
 
