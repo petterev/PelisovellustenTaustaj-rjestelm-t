@@ -54,7 +54,7 @@ public class MongoDBRepository : IRepository
     public async Task<Player[]> GetTenHighest()
     {
 
-        SortDefinition<Player> sortDef = Builders<Player>.Sort.Ascending("Level");
+        SortDefinition<Player> sortDef = Builders<Player>.Sort.Descending("Level");
 
         List<Player> players = await _playerCollection.Find(_ => true).Sort(sortDef).Limit(10).ToListAsync(); ;
 
