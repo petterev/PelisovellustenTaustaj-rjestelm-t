@@ -41,7 +41,7 @@ namespace GameWebApi.Controllers
 
         }
         [HttpPost]
-        [Route("IncrScore/{id:Guid/i:int}")]
+        [Route("IncrScore/{id:Guid}/{i:int}")]
         public async Task<Player> IncrementScore(Guid id, int i)
         {
             Player p = await _repository.IncrementScore(id, i);

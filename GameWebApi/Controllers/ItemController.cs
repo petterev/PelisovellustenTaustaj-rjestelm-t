@@ -24,7 +24,7 @@ namespace GameWebApi.Controllers
 
 
         [HttpPost]
-        [Route("Give")]
+        [Route("Give/id:Guid")]
         public async Task<Item> GiveItem(Guid id, [FromBody] NewItem item)
         {
             Item i = new Item();

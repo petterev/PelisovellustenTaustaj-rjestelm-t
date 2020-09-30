@@ -31,7 +31,7 @@ public class MongoDBRepository : IRepository
 
     public async Task<Player[]> GetWithNumOfItems(int i)
     {
-        FilterDefinition<Player> filter = Builders<Player>.Filter.Size(p => p.Items, i);
+        FilterDefinition<Player> filter = Builders<Player>.Filter.SizeGte(p => p.Items, i);
 
         List<Player> players = await _playerCollection.Find(filter).ToListAsync();
 
@@ -93,7 +93,7 @@ public class MongoDBRepository : IRepository
         var update = Builders<Player>.Update.Inc("Score", i);
         await _playerCollection.UpdateOneAsync(filter, update);
 
-        return null;
+        return await Get(id);
     }
 
     public async Task<Player[]> GetAllWithTag(string tag)
@@ -102,8 +102,7 @@ public class MongoDBRepository : IRepository
         // var playersWithTag = Builders<Player>.Filter.ElemMatch<string>(p => p.tags,tag);
         // 
 
-        var playersWithTag = Builders<Player>.Filter.ElemMatch<string>(p => p.tags,
-            Builders<string>.Filter.In(t => tag, new[] { tag }));
+        var playersWithTag = Builders<Player>.Filter.Eq("Tags", tag);
 
         var players = await _playerCollection.Find(playersWithTag).ToListAsync();
         return players.ToArray();
